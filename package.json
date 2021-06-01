@@ -4,7 +4,8 @@
   "description": "",
   "main": "server/server.ts",
   "scripts": {
-    "start": "ts-node server/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "yarn build && node server/server.js",
     "dev": "ts-node-dev --quiet --rs --clear server/server.ts"
   },
   "keywords": [],

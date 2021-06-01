@@ -8,7 +8,8 @@ const DEFAULT_PORT = 8000;
 const connections = new Map<Socket, string>();
 
 const main = (): void => {
-  const port = getSafePort('dev:server');
+  console.clear();
+  const port = getSafePort('start');
   startServer(port);
 };
 
