@@ -2,12 +2,11 @@ import { Server, Socket } from 'net';
 import { getSafePort, logError, logWarn, generateUsername } from './utils';
 import { cyan, green } from 'chalk';
 
-const HOST = 'localhost';
+const HOST = '0.0.0.0';
 const DEFAULT_PORT = 8000;
 const connections = new Map<Socket, string>();
 
 const main = (): void => {
-  console.clear();
   const port = getSafePort('start');
   startServer(port);
 };
@@ -17,6 +16,8 @@ const startServer = (port: number = DEFAULT_PORT): void => {
   const serverConfig = { host: HOST, port: port };
 
   server.listen(serverConfig);
+
+  console.clear();
   console.log(`✅ Server on port: ${green(serverConfig.port)}\n`);
 
   server.on('connection', manageConnection);

@@ -1,0 +1,12 @@
+---
+version: "3.3"
+
+services:
+    server:
+        container_name: sockets-server
+        restart: always
+        build:
+            context: .
+            dockerfile: ./server.dockerfile
+        ports:
+            - "8000:8000"

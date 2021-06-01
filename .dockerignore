@@ -1,0 +1,7 @@
+.pytest_cache
+.vscode
+node_modules
+.gitignore
+.editorconfig
+LICENSE
+README.md

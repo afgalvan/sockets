@@ -18,7 +18,6 @@ def main() -> None:
     main function of the program.
     """
 
-    call("clear")
     port: int = get_safe_port()
     connect_to_server(port)
 
@@ -70,10 +69,11 @@ def connect_to_server(port: int) -> None:
     sock = socket(AF_INET, SOCK_STREAM)
 
     try:
-        sock.connect(("localhost", port))
+        sock.connect(("0.0.0.0", port))
     except ConnectionRefusedError:
         error("Unable to connect with server")
 
+    call("clear")
     okay(f"Connected to {sock.getpeername()}\n")
     manage_messages(sock)
 
