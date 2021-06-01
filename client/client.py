@@ -2,11 +2,11 @@
 Web socket client.
 """
 
-import socket
-import threading
+from socket import AF_INET, SOCK_STREAM, socket
 from subprocess import call
 from sys import argv
 from sys import exit as sys_exit
+from threading import Thread
 
 from colorama import Fore
 
@@ -67,7 +67,7 @@ def connect_to_server(port: int) -> None:
     Connect to a tcp server in localhost from a given port.
     """
 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock = socket(AF_INET, SOCK_STREAM)
 
     try:
         sock.connect(("localhost", port))
@@ -83,8 +83,8 @@ def manage_messages(sock: socket) -> None:
     Control the message flow with threads.
     """
 
-    recv_thread = threading.Thread(target=receive_data, args=(sock,))
-    send_thread = threading.Thread(target=send_message, args=(sock,))
+    recv_thread = Thread(target=receive_data, args=(sock,))
+    send_thread = Thread(target=send_message, args=(sock,))
 
     recv_thread.start()
     send_thread.start()
@@ -95,7 +95,7 @@ def send_message(sock: socket) -> None:
     Send a message to the server with socket.
     """
 
-    print(f"Type for sending a message or type {END} for finish your session\n")
+    print(f"Type for sending a message or type {END} for exit.\n")
     while True:
         message = input()
         sock.send(message.encode())
