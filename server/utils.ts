@@ -1,4 +1,5 @@
 import { red, yellow } from 'chalk';
+import { uniqueNamesGenerator, Config, starWars } from 'unique-names-generator';
 
 export const getSafePort = (execution: string): number => {
   if (process.argv.length < 3) {
@@ -20,3 +21,14 @@ export const logError = (message: string): void => {
 export const logWarn = (message: string): void => {
   console.log(yellow(`⚠  ${message}`));
 };
+
+export const generateUsername = (): string => {
+  const generatorConfig: Config = {
+    dictionaries: [starWars],
+    separator: '-',
+    length: 1,
+  };
+
+  return uniqueNamesGenerator(generatorConfig).toLowerCase();
+};
+

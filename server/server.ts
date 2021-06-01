@@ -1,7 +1,6 @@
 import { Server, Socket } from 'net';
-import { getSafePort, logError, logWarn } from './utils';
+import { getSafePort, logError, logWarn, generateUsername } from './utils';
 import { cyan, green } from 'chalk';
-import { uniqueNamesGenerator, Config, starWars } from 'unique-names-generator';
 
 const HOST = 'localhost';
 const DEFAULT_PORT = 8000;
@@ -43,22 +42,12 @@ const manageData = (socket: Socket, data: Buffer): void => {
   sendMessage(socket, fullMessage);
 };
 
-const registerUser = (socket: Socket, username: string) => {
+const registerUser = (socket: Socket, username: string): void => {
   const remoteSocket = `${socket.remoteAddress}:${socket.remotePort}`;
   console.log(`${username} connected from ${cyan(remoteSocket)}`);
   connections.set(socket, username);
   const line = '\n===========================\n';
   socket.write('Username: ' + username + line);
-};
-
-const generateUsername = (): string => {
-  const generatorConfig: Config = {
-    dictionaries: [starWars],
-    separator: '-',
-    length: 1,
-  };
-
-  return uniqueNamesGenerator(generatorConfig).toLowerCase();
 };
 
 const sendMessage = (origin: Socket, message: string): void => {
